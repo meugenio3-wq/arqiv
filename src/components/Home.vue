@@ -193,7 +193,7 @@ async function fetchFicheiros(p=1){
     erro.value = null
 
   try {
-    const res = await fetch(`http://127.0.0.1:5000/ficheiros?page=${page.value}&per_page=${perPage.value}`, {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/ficheiros?page=${page.value}&per_page=${perPage.value}`, {
       headers: { Authorization: "Bearer " + token.value },
     })
 
@@ -246,7 +246,7 @@ async function pesquisar() {
   erro.value = null;
 
   try {
-    const res = await fetch(`http://127.0.0.1:5000/pesquisar?q=${encodeURIComponent(termoBusca.value)}`, {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/pesquisar?q=${encodeURIComponent(termoBusca.value)}`, {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") }
     });
 
@@ -299,3 +299,4 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
