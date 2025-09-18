@@ -45,9 +45,9 @@
   <!-- Pesquisa e Filtros -->
   <div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 space-y-2 sm:space-y-0 sm:space-x-4 shadow-sm">
     <!-- Campo de Pesquisa com Botão -->
-    <div class="flex w-full sm:flex-1">
-      <input type="text" placeholder="Pesquisar ficheiros..." v-model="termoBusca" class="flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
-      <button @click.prevent="pesquisar" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition">
+    <div class="flex w-[90%] sm:flex-1">
+      <input type="text" placeholder="Pesquisar ficheiros..." v-model="termoBusca" class="max-w-[65%] flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
+      <button @click.prevent="pesquisar" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition max-w-[30%]">
         Pesquisar
       </button>
     </div>
@@ -299,4 +299,5 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
