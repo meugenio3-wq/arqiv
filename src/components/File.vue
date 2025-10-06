@@ -78,26 +78,58 @@
 
 
 
-
 <!-- Modal de Comentários -->
-<div v-if="abrirModal" class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start pt-20 z-50">
-  <div class="bg-white rounded-lg  max-w-[90%] p-4 shadow-lg">
-    <div class="flex justify-between items-center mb-2">
-      <h2 class="text-lg font-semibold">Comentários</h2>
-      <button @click="abrirModal = false" class="text-gray-500 hover:text-gray-700">&times;</button>
+<div
+  v-if="abrirModal"
+  class="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-start sm:items-center pt-20 sm:pt-0 z-50 overflow-y-auto"
+>
+  <div
+    class="bg-white rounded-2xl w-[90%] sm:w-[500px] max-h-[85vh] p-5 shadow-xl flex flex-col animate-fade-in"
+  >
+    <!-- Cabeçalho -->
+    <div class="flex justify-between items-center border-b pb-2 mb-3">
+      <h2 class="text-lg font-semibold text-gray-800">💬 Comentários</h2>
+      <button
+        @click="abrirModal = false"
+        class="text-gray-500 hover:text-red-500 transition"
+      >
+        &times;
+      </button>
     </div>
 
     <!-- Campo de adicionar comentário -->
-    <div class="flex mb-4 space-x-2">
-      <input v-model="novoComentario" placeholder="Escreva um comentário..." class="flex-1 border rounded px-2 py-1"/>
-      <button @click="enviarComentario" class="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">Enviar</button>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <input
+        v-model="novoComentario"
+        placeholder="Escreva um comentário..."
+        class="flex-1 min-w-[60%] border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <button
+        @click="enviarComentario"
+        class="bg-blue-500 text-white px-5 py-2 rounded-lg hover:bg-blue-600 transition w-auto sm:w-[30%] max-w-[140px]"
+      >
+        Enviar
+      </button>
     </div>
 
     <!-- Lista de comentários -->
-    <div class="max-h-64 overflow-y-auto space-y-2">
-      <div v-for="c in comentarios" :key="c.id" class="p-2 border rounded">
-        <span class="font-semibold">{{ c.autor }}:</span> {{ c.conteudo }}
-        <div class="text-xs text-gray-400">{{ c.data_criacao }}</div>
+    <div
+      class="flex-1 overflow-y-auto space-y-2 pr-1 scroll-smooth"
+    >
+      <div
+        v-for="c in comentarios"
+        :key="c.id"
+        class="p-3 border border-gray-200 rounded-lg bg-gray-50 hover:bg-gray-100 transition"
+      >
+        <div class="flex justify-between items-center">
+          <span class="font-semibold text-gray-800">{{ c.autor }}</span>
+          <span class="text-xs text-gray-400">{{ c.data_criacao }}</span>
+        </div>
+        <p class="text-gray-700 text-sm mt-1">{{ c.conteudo }}</p>
+      </div>
+
+      <div v-if="!comentarios.length" class="text-center text-gray-400 py-6">
+        Nenhum comentário ainda 😔
       </div>
     </div>
   </div>
@@ -309,3 +341,4 @@ const isVideo = (url) => /\.(mp4|m4a|webm|avi)$/i.test(url)
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 </style>
+
