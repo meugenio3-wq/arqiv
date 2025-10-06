@@ -12,7 +12,10 @@
     <!-- Botão + Avatar -->
     <div class="flex items-center space-x-4">
       <a href="#" @click.prevent="goToUser">
-        <img :src="avatarUrl" alt="Avatar" class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-blue-500 transition" />
+        <img :src="avatarUrl" 
+          @error="e => e.target.src = '/avatar.png'"
+          alt="Avatar" 
+          class="w-10 h-10 rounded-full border-2 border-gray-300 hover:border-blue-500 transition" />
       </a>
       <button @click.prevent="logout" class="bg-white border-2 border-red-500 text-red-500 px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition">
         Sair
@@ -317,6 +320,7 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
 
