@@ -42,22 +42,36 @@
     </div>
   </div>
 
-  <!-- Pesquisa e Filtros -->
-  <div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 space-y-2 sm:space-y-0 sm:space-x-4 shadow-sm">
-    <!-- Campo de Pesquisa com Botão -->
-    <div class="flex w-[90%] sm:flex-1">
-      <input type="text" placeholder="Pesquisar ficheiros..." v-model="termoBusca" class="max-w-[65%] flex-1 border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"/>
-      <button @click.prevent="pesquisar" class="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition max-w-[30%]">
-        Pesquisar
-      </button>
-    </div>
+<!-- Pesquisa e Filtros -->
+<div class="flex flex-col sm:flex-row items-center justify-between bg-white p-4 space-y-3 sm:space-y-0 sm:space-x-4 shadow-sm w-full">
 
-    <!-- Botão enviar -->
-    <button @click.prevent="goToUpload" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition w-[80%] sm:w-auto flex items-center justify-center space-x-2">
-      <span class="material-icons text-base">upload</span>
-      <span>Enviar ficheiro</span>
+  <!-- Campo de Pesquisa com Botão -->
+  <div class="flex w-full sm:flex-1">
+    <input
+      type="text"
+      placeholder="Pesquisar ficheiros..."
+      v-model="termoBusca"
+      class="w-[70%] border border-gray-300 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+    <button
+      @click.prevent="pesquisar"
+      class="w-[30%] bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition text-center"
+    >
+      Pesquisar
     </button>
   </div>
+
+  <!-- Botão enviar -->
+  <button
+    @click.prevent="goToUpload"
+    class="w-full sm:w-[30%] bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition flex items-center justify-center space-x-2"
+  >
+    <span class="material-icons text-base">upload</span>
+    <span>Enviar ficheiro</span>
+  </button>
+
+</div>
+
 </div>
 
 
@@ -299,6 +313,7 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
 
