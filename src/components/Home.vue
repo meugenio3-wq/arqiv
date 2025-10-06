@@ -97,12 +97,16 @@
         alt="Thumb Ficheiro"
         class="w-full h-24 object-cover rounded-md mb-2"
       />
-      <video
-        v-else-if="f.url.match(/\.(mp4|avi|webm|vid|m4a)$/i)"
-        src="/video.png"
-        alt="Thumb Ficheiro"
-        class="w-full h-24 object-cover rounded-md mb-2"
-      />
+
+<video
+  v-else-if="f.url.match(/\.(mp4|avi|webm|vid|m4a)$/i)"
+  :src="f.url"
+  class="w-full h-24 object-cover rounded-md mb-2"
+  controls
+  preload="none"
+  poster="/video.png"
+/>
+      
       <img
         v-else
         src="/file.png"
@@ -313,6 +317,7 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
 
