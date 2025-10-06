@@ -47,16 +47,6 @@
           </label>
         </div>
 
-        <!-- Se privado, mostrar grátis/pago -->
-        <div v-if="publico === 'false'" class="flex items-center space-x-4">
-          <label>
-            <input type="radio" value="false" v-model="pago" /> Grátis
-          </label>
-          <label>
-            <input type="radio" value="true" v-model="pago" /> Pago
-          </label>
-        </div>
-
         <!-- 5. Botão de enviar -->
         <div class="flex justify-center">
           <button
@@ -133,3 +123,4 @@ const enviarFicheiro = async () => {
     router.push('/home'); // Rota definida no Vue Router
   }
 </script>
+
