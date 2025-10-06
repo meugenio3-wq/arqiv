@@ -165,6 +165,200 @@
   </div>
 </template>
 
+
+<script setup>
+import { ref, watch, onMounted, defineProps } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
+
+const route = useRoute();
+const router = useRouter();
+const id = ref(route.params.id);
+const file = ref(null);
+const token = ref(localStorage.getItem('token'));
+
+// Função para buscar dados da API
+async function fetchDados(novoId) {
+  try {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/file/${novoId}`, {
+      headers: {
+        "Authorization": "Bearer " + token.value
+      }
+    });
+    if (!res.ok) {
+      router.push("/")
+    };
+    file.value = await res.json();
+    
+  } catch (err) {
+    console.error(err);
+    file.value = null;
+  }
+}
+
+
+
+const props = defineProps({
+  id: String
+});
+
+
+// Busca inicial quando o componente monta
+onMounted(() => fetchDados(id.value));
+
+// Observa mudanças no id da rota
+watch(() => route.params.id, (novoId) => {
+  id.value = novoId;
+  fetchDados(novoId);
+});
+
+
+// Download file
+async function baixarArquivo(fileId) {
+  let headers = {};
+  
+    const token = localStorage.getItem("token");
+
+    headers["Authorization"] = "Bearer " + token;
+  
+
+  try {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/download/${fileId}`, { headers });
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.mensagem || "Erro ao baixar arquivo");
+      return;
+    }
+
+    const blob = await res.blob();
+    file.value.downloads++;
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = file.value.filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (e) {
+    console.error(e);
+    alert("Erro ao conectar com o servidor.");
+  }
+}
+
+
+//Partilhar
+
+// Função de partilha
+async function partilhar(fileId) {
+  if (!file.value) return;
+  let headers = {};
+
+    const token = localStorage.getItem("token");
+
+    headers["Authorization"] = "Bearer " + token;
+  
+
+   try {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/partilhar/${fileId}`, { headers });
+    if (!res.ok) {
+      const err = await res.json();
+      alert(err.mensagem || "Erro ao partilhar arquivo");
+      return;
+    }
+
+  // Incrementa localmente a contagem de partilhas
+  file.value.partilhas++;
+
+  // Monta o link completo da página do arquivo
+
+  const url = `${window.location.origin}/file/${file.value.file_id}`;
+
+  // Copia para a área de transferência
+  await navigator.clipboard.writeText(url)
+  alert("Link copiado");
+   }catch(err) {
+      console.error("Erro ao copiar o link:", err);
+      alert("Não foi possível copiar o link.");
+    };
+
+
+
+  
+}
+
+
+
+
+const abrirModal = ref(false);
+const comentarios = ref([]);
+const novoComentario = ref("");
+
+async function carregarComentarios() {
+  try {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/comments/${id.value}`, {
+      headers: { "Authorization": "Bearer " + token.value }
+    });
+    comentarios.value = (await res.json()).reverse();
+  } catch (err) {
+    console.error("Erro ao carregar comentários:", err);
+  }
+}
+
+async function enviarComentario() {
+  if (!novoComentario.value.trim()) return;
+
+  try {
+    const res = await fetch(`https://sgnid.pythonanywhere.com/comments/${id.value}`, {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + token.value,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ conteudo: novoComentario.value })
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      alert(err.mensagem || "Erro ao enviar comentário");
+      return;
+    }
+
+    const data = await res.json(); // { comment: { ... }, comentarios_count: N }
+    const comentarioNovo = data.comment;
+
+    // adiciona no topo (Facebook-style)
+    comentarios.value.unshift(comentarioNovo);
+
+    // atualiza contador no objecto file (se existir)
+    if (file.value) {
+      file.value.comentarios += 1;
+    }
+
+    novoComentario.value = "";
+  } catch (err) {
+    console.error("Erro ao enviar comentário:", err);
+    alert("Erro ao conectar com o servidor.");
+  }
+}
+
+
+
+
+
+//Helpers
+const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
+const isVideo = (url) => /\.(mp4|m4a|webm|avi)$/i.test(url)
+
+
+
+  const goHome = () => {
+    router.push('/home'); // Rota definida no Vue Router
+  }
+</script>
+
+
+
+
 <style>
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
@@ -184,3 +378,4 @@
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
