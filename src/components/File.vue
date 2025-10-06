@@ -122,7 +122,7 @@
         class="p-3 border border-gray-200 rounded-lg bg-gray-50 hover:bg-gray-100 transition"
       >
         <div class="flex justify-between items-center">
-          <span class="font-semibold text-gray-800">{{ c.autor }}</span>
+          <span class="font-semibold text-gray-800">Publicado por: {{ c.autor }}</span>
           <span class="text-xs text-gray-400">{{ c.data_criacao }}</span>
         </div>
         <p class="text-gray-700 text-sm mt-1">{{ c.conteudo }}</p>
@@ -341,4 +341,5 @@ const isVideo = (url) => /\.(mp4|m4a|webm|avi)$/i.test(url)
 <style>
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 </style>
+
 
