@@ -12,7 +12,7 @@
 
       <!-- Título -->
       <h1 class="text-2xl font-extrabold text-gray-800 mb-8 tracking-tight">
-        Bem-vindo ao <span class="text-blue-600">SGNID</span>
+        Bem-vindo ao <span class="text-blue-600">arQiv</span>
       </h1>
 
       <!-- Botão login -->
@@ -42,7 +42,7 @@
 
       <!-- Rodapé -->
       <p class="text-xs text-gray-500 mt-6">
-        © {{ new Date().getFullYear() }} SGNID — Todos os direitos reservados
+        © {{ new Date().getFullYear() }} arQiv — Todos os direitos reservados
       </p>
     </div>
   </div>
@@ -72,3 +72,4 @@ const goToSignUp = () => router.push("/cadastrar")
   animation: fade-in 0.8s ease-out;
 }
 </style>
+
