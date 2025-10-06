@@ -18,6 +18,7 @@
     <div class="relative">
       <img
         :src="avatarUrl"
+        @error="e => e.target.src = '/avatar.png'"
         alt="Avatar"
         class="w-20 h-20 rounded-full border border-gray-300 object-cover"
       />
@@ -294,3 +295,4 @@ async function selecionarFoto(event) {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
