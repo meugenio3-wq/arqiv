@@ -167,7 +167,7 @@ const ficheiros = ref([])
 const ficheiros_count = ref(0)
 const downloads_count = ref(0)
 const partilhas_count = ref(0)
-const avatarUrl = ref("../../public/avatar.png"); // estado inicial
+const avatarUrl = ref("avatar.png"); // estado inicial
 
 const loading = ref(false)   // ✅ estado de carregamento
 const erro = ref(null)       // opcional: feedback se a API falhar
@@ -299,5 +299,6 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
