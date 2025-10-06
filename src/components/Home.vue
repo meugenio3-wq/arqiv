@@ -116,10 +116,10 @@
 
       <!-- Nome do ficheiro -->
       <span class="truncate max-w-[200px] text-sm font-semibold mb-1">{{ f.filename }}</span>
-      <span>Tipo: </span><span class="p-1 rounded-md bg-gray-100">{{ f.ext || ""}}</span>
+      <span class="p-1 rounded-md bg-gray-100">Tipo: {{ f.ext || ""}}</span>
       <!-- Autor e Data -->
       <div class="flex justify-between w-full text-xs text-gray-500 mb-2">
-        <span>{{ f.autor }}</span>
+        <span>Publicado por: {{ f.autor }}</span>
         <span>{{ f.data_upload }}</span>
       </div>
 
@@ -317,6 +317,7 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
 
