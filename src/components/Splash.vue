@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-600 to-indigo-700 text-white">
     <!-- Logo / Nome -->
     <div class="text-center">
-      <h1 class="text-3xl font-bold mb-4 tracking-wide">SGNID</h1>
+      <h1 class="text-3xl font-bold mb-4 tracking-wide">arQiv</h1>
       <p class="text-sm opacity-80">A verificar sessão...</p>
     </div>
 
@@ -71,3 +71,4 @@ onMounted(async () => {
   animation: spin 1s linear infinite;
 }
 </style>
+
