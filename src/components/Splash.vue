@@ -26,7 +26,7 @@ onMounted(async () => {
 
   if (!token) {
     mensagem.value = "Nenhum token encontrado. Redirecionando..."
-    return setTimeout(() => router.replace("/entry"), 800)
+    return setTimeout(() => router.replace("/landing"), 800)
   }
 
   try {
@@ -49,14 +49,14 @@ onMounted(async () => {
       if (dados.valido || dados.user) router.replace("/home")
       else {
         localStorage.removeItem("token")
-        router.replace("/entry")
+        router.replace("/landing")
       }
     }, 800)
   } catch (e) {
     console.error("Erro ao verificar token:", e.message)
     mensagem.value = "Erro de verificação. Redirecionando..."
     localStorage.removeItem("token")
-    setTimeout(() => router.replace("/entry"), 1200)
+    setTimeout(() => router.replace("/landing"), 1200)
   }
 })
 </script>
@@ -71,4 +71,5 @@ onMounted(async () => {
   animation: spin 1s linear infinite;
 }
 </style>
+
 
