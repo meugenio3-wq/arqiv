@@ -7,7 +7,7 @@
       <img
         src="/logo.jpeg"
         alt="Logo"
-        class="w-32 h-auto mb-6 rounded-lg shadow-md"
+        class="w-32 h-auto mx-auto mb-6 drop-shadow-md rounded-lg"
       />
 
       <!-- Título -->
@@ -72,5 +72,6 @@ const goToSignUp = () => router.push("/cadastrar")
   animation: fade-in 0.8s ease-out;
 }
 </style>
+
 
 
