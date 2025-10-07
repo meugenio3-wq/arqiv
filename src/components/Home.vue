@@ -198,7 +198,7 @@ const totalItems = ref(0);
 
 onMounted(async () => {
   if (!token.value) {
-    router.push("/entry")
+    router.push("/landing")
     return
   }
   fetchFicheiros()
@@ -304,7 +304,7 @@ function goToUpload() {
 function logout() {
   token.value = null
   localStorage.removeItem("token")
-  router.push("/entry")
+  router.push("/landing")
 }
 
 
@@ -320,6 +320,7 @@ function logout() {
 }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
 
