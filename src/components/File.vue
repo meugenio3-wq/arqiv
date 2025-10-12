@@ -40,7 +40,7 @@
         <div v-else-if="file?.url && isAudio(file.url)" class="relative w-full h-72 bg-gray-200 rounded-xl overflow-hidden">
           <!-- Imagem de capa -->
           <img 
-            src="/foto_musica.jpg" 
+            src="/foto_music.jpg" 
             alt="Capa do áudio" 
             class="w-full h-full object-cover"
           />
@@ -398,6 +398,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
