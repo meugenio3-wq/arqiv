@@ -35,7 +35,15 @@
           class="w-full h-72 object-cover"
           controls
         />
-
+        
+        <!-- Áudio -->
+        <audio
+          v-else-if="file?.url && isAudio(file.url)"
+          :src="file.url"
+          controls
+        />
+        
+        
         <!-- Arquivo genérico -->
         <div
           v-else
@@ -346,9 +354,10 @@ async function enviarComentario() {
 
 
 //Helpers
-const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
-const isVideo = (url) => /\.(mp4|m4a|webm|avi)$/i.test(url)
 
+const isVideo = (url) => /\.(mp4|webm|avi)$/i.test(url)
+const isAudio = (url) => /\.(mp3|m4a|ogg)$/i.test(url)
+const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
 
 
   const goHome = () => {
@@ -378,4 +387,5 @@ const isVideo = (url) => /\.(mp4|m4a|webm|avi)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
