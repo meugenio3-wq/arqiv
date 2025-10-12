@@ -36,12 +36,23 @@
           controls
         />
         
-        <!-- Áudio -->
-        <audio
-          v-else-if="file?.url && isAudio(file.url)"
-          :src="file.url"
-          controls
-        />
+        <!-- Componente Áudio com imagem -->
+        <div v-else-if="file?.url && isAudio(file.url)" class="relative w-full h-72 bg-gray-200 rounded-xl overflow-hidden">
+          <!-- Imagem de capa -->
+          <img 
+            src="caminho/para/imagem_de_capa.png" 
+            alt="Capa do áudio" 
+            class="w-full h-full object-cover"
+          />
+        
+          <!-- Player de áudio invisível (mas funcional) -->
+          <audio 
+            :src="file.url" 
+            controls 
+            class="absolute bottom-2 left-2 w-[95%] bg-white bg-opacity-80 rounded p-1"
+          ></audio>
+        </div>
+
         
         
         <!-- Arquivo genérico -->
@@ -387,5 +398,6 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
