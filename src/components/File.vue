@@ -205,23 +205,47 @@ async function fetchDados(novoId) {
         "Authorization": "Bearer " + token.value
       }
     });
+
     if (!res.ok) {
-      router.push("/")
-    };
+      router.push("/");
+      return;
+    }
+
     file.value = await res.json();
-    
+
+    // ✅ Registrar visita na rota de estatísticas
+    try {
+      await fetch("https://sgnid.pythonanywhere.com/stats/visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          pagina: `/file/${novoId}`,
+          titulo: file.value?.filename || "desconhecido",
+          data: new Date().toISOString()
+        })
+      });
+    } catch (e) {
+      console.warn("Falha ao registrar visita:", e);
+    }
+
   } catch (err) {
-    console.error(err);
+    console.error("Erro ao buscar dados:", err);
     file.value = null;
   }
 }
 
+// Busca inicial quando o componente monta
+onMounted(() => fetchDados(id.value));
+
+  
 function escapeHtml(text) {
   const div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
 }
 
+
+  
 function linkifySafe(text) {
   if (!text) return '';
   const escaped = escapeHtml(text);
@@ -238,8 +262,7 @@ const props = defineProps({
 });
 
 
-// Busca inicial quando o componente monta
-onMounted(() => fetchDados(id.value));
+
 
 // Observa mudanças no id da rota
 watch(() => route.params.id, (novoId) => {
@@ -415,6 +438,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
