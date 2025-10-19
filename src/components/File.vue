@@ -84,7 +84,7 @@
             🗂 Nome: {{ file?.filename || '' }}
           </p>
 <div
-  class="max-h-48 overflow-y-auto p-3 border border-gray-200 rounded-lg text-sm leading-relaxed text-gray-700 bg-gray-50"
+  class="max-h-48 overflow-y-auto p-3 border border-gray-200 rounded-lg text-sm leading-relaxed text-gray-700 bg-gray-50 break-words whitespace-pre-wrap"
   v-html="linkifySafe(file?.descricao || 'Sem descrição disponível.')"
 
 ></div>
@@ -415,6 +415,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
