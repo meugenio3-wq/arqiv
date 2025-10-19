@@ -83,11 +83,10 @@
           <p class="font-semibold text-gray-800 truncate">
             🗂 Nome: {{ file?.filename || '' }}
           </p>
-          <div
-            class="max-h-48 overflow-y-auto p-3 border border-gray-200 rounded-lg text-sm leading-relaxed text-gray-700 bg-gray-50"
-          >
-            {{ file?.descricao || 'Sem descrição disponível.' }}
-          </div>
+<div
+  class="max-h-48 overflow-y-auto p-3 border border-gray-200 rounded-lg text-sm leading-relaxed text-gray-700 bg-gray-50"
+  v-html="(file?.descricao || 'Sem descrição disponível.').replace(/(https?:\/\/[^\s]+)/g, '<a href=\"$1\" target=\"_blank\" class=\"text-blue-600 underline\">$1</a>')"
+></div>
         </div>
 
         <!-- Estatísticas e ações -->
@@ -398,6 +397,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
