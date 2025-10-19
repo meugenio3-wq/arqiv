@@ -85,8 +85,11 @@
           </p>
 <div
   class="max-h-48 overflow-y-auto p-3 border border-gray-200 rounded-lg text-sm leading-relaxed text-gray-700 bg-gray-50"
-  v-html="(file?.descricao || 'Sem descrição disponível.').replace(/(https?:\/\/[^\s]+)/g, '<a href=\"$1\" target=\"_blank\" class=\"text-blue-600 underline\">$1</a>')"
+  v-html="linkifySafe(file?.descricao || 'Sem descrição disponível.')"
+
 ></div>
+
+
         </div>
 
         <!-- Estatísticas e ações -->
@@ -213,6 +216,21 @@ async function fetchDados(novoId) {
   }
 }
 
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function linkifySafe(text) {
+  if (!text) return '';
+  const escaped = escapeHtml(text);
+  const urlPattern = /(https?:\/\/[^\s]+)/g;
+  return escaped.replace(
+    urlPattern,
+    '<a href="$1" target="_blank" class="text-blue-600 underline">$1</a>'
+  );
+}
 
 
 const props = defineProps({
@@ -397,6 +415,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
