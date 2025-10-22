@@ -94,26 +94,16 @@
           />
         
           <!-- Música -->
-          <div
-            v-else-if="f.url.match(/\.(mp3|m4a)$/i)"
-            class="relative w-full h-30 rounded-md mb-2 overflow-hidden"
-          >
-            <!-- Ícone de música -->
-            <img
-              src="/musica.jpg"
-              alt="Thumb Música"
-              class="w-full h-full object-cover opacity-80"
-            />
-            <!-- Botão Play -->
-            <button
-              @click.stop="new Audio(f.url).play()"
-              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 hover:bg-opacity-60 transition"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z"/>
-              </svg>
-            </button>
-          </div>
+          <!-- Áudio (renderizado como <video> com poster de música) -->
+          <video
+            v-else-if="isAudio(f.url)"
+            :src="f.url"
+            class="w-full h-30 object-cover rounded-md mb-2"
+            controls
+            preload="none"
+            poster="/musica.jpg"
+            playsinline
+          ></video>
         
           <!-- Vídeo -->
           <video
@@ -264,4 +254,5 @@ function logout() {
 .break-text { word-break: break-word; overflow-wrap: break-word; }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
