@@ -96,7 +96,7 @@
           <!-- Música -->
           <!-- Áudio (renderizado como <video> com poster de música) -->
           <video
-            v-else-if="isAudio(f.url)"
+            v-else-if="f.url.match(/\.(mp3|m4a)$/i)"
             :src="f.url"
             class="w-full h-30 object-cover rounded-md mb-2"
             controls
@@ -254,5 +254,6 @@ function logout() {
 .break-text { word-break: break-word; overflow-wrap: break-word; }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
 
 
