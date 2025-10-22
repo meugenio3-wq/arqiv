@@ -84,9 +84,56 @@
         @click.prevent="goToFile(f.id)"
         class="bg-gray-50 space-y-6 break-text rounded-lg shadow-lg border-2 p-4 flex flex-col items-start"
       >
-        <img v-if="f.url.match(/\.(jpg|jpeg|png|webp|jfif)$/i)" :src="f.url" alt="Thumb Ficheiro" class="w-full h-24 object-cover rounded-md mb-2"/>
-        <video v-else-if="f.url.match(/\.(mp4|avi|webm|vid|m4a)$/i)" :src="f.url" class="w-full h-24 object-cover rounded-md mb-2" controls preload="none" poster="/video.png"/>
-        <img v-else src="/file.png" alt="Thumb Ficheiro" class="w-full h-24 object-cover rounded-md mb-2"/>
+        <div class="relative">
+          <!-- Imagem -->
+          <img
+            v-if="f.url.match(/\.(jpg|jpeg|png|webp|jfif)$/i)"
+            :src="f.url"
+            alt="Thumb Ficheiro"
+            class="w-full h-30 object-cover rounded-md mb-2"
+          />
+        
+          <!-- Música -->
+          <div
+            v-else-if="f.url.match(/\.(mp3|m4a)$/i)"
+            class="relative w-full h-30 rounded-md mb-2 overflow-hidden"
+          >
+            <!-- Ícone de música -->
+            <img
+              src="/musica.jpg"
+              alt="Thumb Música"
+              class="w-full h-full object-cover opacity-80"
+            />
+            <!-- Botão Play -->
+            <button
+              @click.stop="new Audio(f.url).play()"
+              class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-40 hover:bg-opacity-60 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          </div>
+        
+          <!-- Vídeo -->
+          <video
+            v-else-if="f.url.match(/\.(mp4|avi|webm|vid|m4v)$/i)"
+            :src="f.url"
+            class="w-full h-30 object-cover rounded-md mb-2"
+            controls
+            preload="none"
+            poster="/video.png"
+          ></video>
+        
+          <!-- Outros ficheiros -->
+          <img
+            v-else
+            src="/file.png"
+            alt="Thumb Ficheiro"
+            class="w-full h-30 object-cover rounded-md mb-2"
+          />
+        </div>
+
         <span class="truncate max-w-[200px] text-sm font-semibold mb-1">{{ f.filename }}</span>
         <span class="p-1 rounded-md bg-gray-100">{{ f.ext || ""}}</span>
         <div class="flex justify-between w-full text-xs text-gray-500 mb-2">
@@ -217,3 +264,4 @@ function logout() {
 .break-text { word-break: break-word; overflow-wrap: break-word; }
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 </style>
+
