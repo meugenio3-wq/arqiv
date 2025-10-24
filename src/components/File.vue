@@ -318,7 +318,7 @@ const baixarArquivo = throttle(async function (fileId) {
     console.error(e);
     alert("Erro ao conectar com o servidor.");
   }
-}, 4000); // 4 segundos de espera
+}, 10000); // 10 segundos de espera
 
 
 
@@ -348,7 +348,7 @@ const partilhar = throttle(async function (fileId) {
     console.error("Erro ao copiar o link:", err);
     alert("Não foi possível copiar o link.");
   }
-}, 3000);
+}, 10000);
 
 
 
@@ -402,7 +402,7 @@ const enviarComentario = throttle(async function () {
     console.error("Erro ao enviar comentário:", err);
     alert("Erro ao conectar com o servidor.");
   }
-}, 3000);
+}, 10000);
 
 
 
@@ -443,6 +443,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
