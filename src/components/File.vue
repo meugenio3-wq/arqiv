@@ -271,6 +271,25 @@ watch(() => route.params.id, (novoId) => {
 });
 
 
+
+  // Função genérica para evitar cliques repetidos
+function throttle(func, delay = 3000) {
+  let isThrottled = false;
+  return async function (...args) {
+    if (isThrottled) {
+      alert("Aguarde um momento antes de tentar novamente...");
+      return;
+    }
+    isThrottled = true;
+    try {
+      await func.apply(this, args);
+    } finally {
+      setTimeout(() => (isThrottled = false), delay);
+    }
+  };
+}
+
+
 // Download file
 async function baixarArquivo(fileId) {
   let headers = {};
@@ -308,16 +327,13 @@ async function baixarArquivo(fileId) {
 //Partilhar
 
 // Função de partilha
-async function partilhar(fileId) {
+const partilhar = throttle(async function (fileId) {
   if (!file.value) return;
   let headers = {};
+  const token = localStorage.getItem("token");
+  headers["Authorization"] = "Bearer " + token;
 
-    const token = localStorage.getItem("token");
-
-    headers["Authorization"] = "Bearer " + token;
-  
-
-   try {
+  try {
     const res = await fetch(`https://sgnid.pythonanywhere.com/partilhar/${fileId}`, { headers });
     if (!res.ok) {
       const err = await res.json();
@@ -325,25 +341,17 @@ async function partilhar(fileId) {
       return;
     }
 
-  // Incrementa localmente a contagem de partilhas
-  file.value.partilhas++;
+    file.value.partilhas++;
 
-  // Monta o link completo da página do arquivo
+    const url = `${window.location.origin}/file/${file.value.file_id}`;
+    await navigator.clipboard.writeText(url);
+    alert("Link copiado");
+  } catch (err) {
+    console.error("Erro ao copiar o link:", err);
+    alert("Não foi possível copiar o link.");
+  }
+}, 3000);
 
-  const url = `${window.location.origin}/file/${file.value.file_id}`;
-
-  // Copia para a área de transferência
-  await navigator.clipboard.writeText(url)
-  alert("Link copiado");
-   }catch(err) {
-      console.error("Erro ao copiar o link:", err);
-      alert("Não foi possível copiar o link.");
-    };
-
-
-
-  
-}
 
 
 
@@ -438,6 +446,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
