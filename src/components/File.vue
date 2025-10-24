@@ -291,13 +291,10 @@ function throttle(func, delay = 3000) {
 
 
 // Download file
-async function baixarArquivo(fileId) {
+const baixarArquivo = throttle(async function (fileId) {
   let headers = {};
-  
-    const token = localStorage.getItem("token");
-
-    headers["Authorization"] = "Bearer " + token;
-  
+  const token = localStorage.getItem("token");
+  headers["Authorization"] = "Bearer " + token;
 
   try {
     const res = await fetch(`https://sgnid.pythonanywhere.com/download/${fileId}`, { headers });
@@ -321,7 +318,8 @@ async function baixarArquivo(fileId) {
     console.error(e);
     alert("Erro ao conectar com o servidor.");
   }
-}
+}, 4000); // 4 segundos de espera
+
 
 
 //Partilhar
@@ -445,6 +443,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
