@@ -371,7 +371,8 @@ async function carregarComentarios() {
   }
 }
 
-async function enviarComentario() {
+// Enviar comentário
+const enviarComentario = throttle(async function () {
   if (!novoComentario.value.trim()) return;
 
   try {
@@ -390,13 +391,10 @@ async function enviarComentario() {
       return;
     }
 
-    const data = await res.json(); // { comment: { ... }, comentarios_count: N }
+    const data = await res.json();
     const comentarioNovo = data.comment;
-
-    // adiciona no topo (Facebook-style)
     comentarios.value.unshift(comentarioNovo);
 
-    // atualiza contador no objecto file (se existir)
     if (file.value) {
       file.value.comentarios += 1;
     }
@@ -406,7 +404,8 @@ async function enviarComentario() {
     console.error("Erro ao enviar comentário:", err);
     alert("Erro ao conectar com o servidor.");
   }
-}
+}, 3000);
+
 
 
 
@@ -446,6 +445,7 @@ const isImage = (url) => /\.(jpg|jpeg|png|gif|webp|jfif)$/i.test(url)
   animation: fade-in 0.25s ease-in-out;
 }
 </style>
+
 
 
 
